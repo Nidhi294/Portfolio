@@ -134,7 +134,7 @@ export default function ScrollyCanvas() {
 
   return (
     <div ref={containerRef} className="absolute top-0 left-0 w-full h-[500vh]">
-      <div className="sticky top-0 w-full h-screen overflow-hidden bg-[#121212] p-4 sm:p-6 md:p-8 lg:p-12">
+      <div className="sticky top-0 w-full h-[100dvh] overflow-hidden bg-[#121212] p-4 sm:p-6 md:p-8 lg:p-12">
         
         {/* Loading Overlay */}
         {!isReady && (
@@ -152,49 +152,41 @@ export default function ScrollyCanvas() {
           </div>
         )}
 
-        {/* Outer off-white film container (3-row layout with 50% opacity) */}
-        <div className="relative w-full h-full bg-[#f4f4f0]/50 flex flex-col shadow-2xl rounded-sm overflow-hidden">
+        {/* Outer futuristic cyberpunk container */}
+        <div className="relative w-full h-full p-[2px] rounded-xl overflow-hidden shadow-[0_0_40px_rgba(6,182,212,0.2)] flex flex-col group">
           
-          {/* Top Perforations (1cm x 1cm square windows) */}
-          <div className="h-[14mm] w-full flex-shrink-0 p-[2mm]">
-            <div 
-              className="w-full h-full bg-[linear-gradient(to_right,#000_10mm,transparent_10mm)] bg-[size:15mm_100%]"
-            />
-          </div>
+          {/* Animated revolving light streaks using vmax to ensure perfect circle on any aspect ratio */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200vmax] h-[200vmax] z-0 bg-[conic-gradient(from_0deg_at_50%_50%,#00000000_0%,#00000000_40%,#06b6d4_50%,#00000000_60%,#00000000_90%,#8b5cf6_100%)] animate-[spin_6s_linear_infinite] opacity-70 group-hover:opacity-100 transition-opacity duration-700"></div>
 
-          <div className="flex-grow flex w-full min-h-0">
-            {/* Left Perforations (1cm x 1cm square windows) */}
-            <div className="w-[14mm] flex-shrink-0 h-full p-[2mm]">
-              <div 
-                className="w-full h-full bg-[linear-gradient(to_bottom,#000_10mm,transparent_10mm)] bg-[size:100%_15mm]"
-              />
+          {/* Internal content wrapper with glassmorphism */}
+          <div className="relative z-10 flex flex-col w-full h-full bg-[#050510]/80 backdrop-blur-2xl rounded-[10px] border border-white/10 overflow-hidden p-2 sm:p-4">
+            
+            {/* Soft inner blur glow */}
+            <div className="absolute inset-0 shadow-[inset_0_0_100px_rgba(6,182,212,0.1),inset_0_0_30px_rgba(139,92,246,0.1)] z-20 pointer-events-none rounded-[8px]"></div>
+
+            {/* Top UI Accents */}
+            <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-[#06b6d4]/50 to-transparent z-30"></div>
+            <div className="absolute top-2 right-4 flex gap-1 z-30 opacity-30">
+              <div className="w-6 h-1 bg-[#06b6d4] rounded-full"></div>
+              <div className="w-1 h-1 bg-[#8b5cf6] rounded-full"></div>
+              <div className="w-1 h-1 bg-white rounded-full"></div>
             </div>
 
-            {/* Center Image/Canvas Area */}
-            <div className="flex-grow h-full relative z-10 w-full px-2">
-              <div className="w-full h-full overflow-hidden rounded-[2px] bg-[#121212] shadow-inner">
+            {/* Inner Canvas Area */}
+            <div className="relative flex-grow h-full w-full z-10">
+              <div className="w-full h-full overflow-hidden rounded-[6px] bg-[#010101] border border-white/5 shadow-[0_0_20px_rgba(6,182,212,0.1)_inset,0_0_15px_rgba(0,0,0,0.8)]">
                 <canvas 
                   ref={canvasRef} 
-                  className="w-full h-full block" 
+                  className="w-full h-full block mix-blend-screen" 
                 />
               </div>
             </div>
+            
+            {/* Bottom UI Accents */}
+            <div className="absolute bottom-2 left-4 text-[9px] font-mono tracking-widest text-[#06b6d4]/50 z-30">SYS.ON // READY</div>
+            <div className="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-[#8b5cf6]/30 via-transparent to-transparent z-30"></div>
 
-            {/* Right Perforations (1cm x 1cm square windows) */}
-            <div className="w-[14mm] flex-shrink-0 h-full p-[2mm]">
-              <div 
-                className="w-full h-full bg-[linear-gradient(to_bottom,#000_10mm,transparent_10mm)] bg-[size:100%_15mm]"
-              />
-            </div>
           </div>
-
-          {/* Bottom Perforations (1cm x 1cm square windows) */}
-          <div className="h-[14mm] w-full flex-shrink-0 p-[2mm]">
-            <div 
-              className="w-full h-full bg-[linear-gradient(to_right,#000_10mm,transparent_10mm)] bg-[size:15mm_100%]"
-            />
-          </div>
-
         </div>
 
       </div>
